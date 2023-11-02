@@ -1,11 +1,9 @@
 #define MAX 100
 
-typedef struct aluno{
+struct aluno{
     int matricula;
     float n1, n2, n3;
-} ALUNO;
-
-ALUNO cria_aluno();
+};
 
 typedef struct lista Lista;
 

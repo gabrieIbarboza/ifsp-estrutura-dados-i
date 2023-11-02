@@ -2,22 +2,6 @@
 #include <stdlib.h>
 #include "listaSequencial.h"
 
-struct aluno cria_aluno()
-{
-    ALUNO al;
-
-    printf("\n\nInforme a matricula do aluno: ");
-    scanf("%d", &al.matricula);
-    printf("\nInforme a nota 1: ");
-    scanf("%f", &al.n1);
-    printf("\nInforme a nota 2: ");
-    scanf("%f", &al.n2);
-    printf("\nInforme a nota 3: ");
-    scanf("%f", &al.n3);
-
-    return al;
-}
-
 struct lista{
     int qtd;
     struct aluno dados[MAX];

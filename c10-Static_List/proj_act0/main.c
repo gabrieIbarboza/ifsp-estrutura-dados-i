@@ -5,14 +5,11 @@
 
 int main()
 {
-    int x, i, qntAlunos = 10; //sera usado para codigo de erro
+    int x; //sera usado para codigo de erro
     int mat = 110, posicao = 1;
     Lista *li;
-    ALUNO al, al2, al3, dados_aluno;
+    struct aluno al, al2, al3, dados_aluno;
 
-    li = cria_lista();
-
-    // Inserir alunos padrões
     al.matricula = 100;
     al.n1 = 5.3;
     al.n2 = 6.9;
@@ -27,6 +24,9 @@ int main()
     al3.n1 = 5.3;
     al3.n2 = 6.9;
     al3.n3 = 7.4;
+
+
+    li = cria_lista();
 
     x = tamanho_lista(li);
     printf("\nTamanho da lista e: %d", x);
@@ -79,21 +79,6 @@ int main()
     else
     {
         printf("\nErro aluno nao inserido!");
-    }
-
-    // pedir 10 alunos ordenamente
-    for(i = 0; i < qntAlunos; i++)
-    {
-        al = cria_aluno();
-        x = insere_lista_ordenada(li, al);
-        if(x)
-        {
-            printf("\nAluno inserido com sucesso!");
-        }
-        else
-        {
-            printf("\nErro aluno nao inserido!");
-        }
     }
 
     x = remove_lista_final(li);
