@@ -3,6 +3,9 @@ typedef struct aluno{
     float n1, n2, n3;
 }ALUNO;
 
+ALUNO coletadados();
+
+
 typedef struct elemento* Lista;
 
 Lista *criaLista();

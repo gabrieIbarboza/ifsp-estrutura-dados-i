@@ -90,7 +90,7 @@ int main()
     }
     else
     {
-        printf("\nElemeneto %d nao encontrado.", posicao);
+        printf("\nElemeneto %d nao encontrado.", matricula);
     }
 
     x = remove_inicio_lista(li);
@@ -112,6 +112,77 @@ int main()
         printf("\nElemento removido com sucesso!");
     }else{
         printf("\nNao foi possivel remover o elemento.");
+    }
+
+    system("cls");
+    //Atividade do Slide
+    int continuar = 1;
+    char choice = '9';
+    while(continuar)
+    {
+        printf("~~~~Menu Lista Ligada~~~~\n");
+        printf("\n1 - Incluir aluno na Lista");
+        printf("\n2 - Buscar aluno por matricula");
+        printf("\n3 - Excluir aluno");
+        printf("\n0 - Encerrar programa");
+        printf("\n\nInforme a opcao desejada: ");
+        scanf(" %c", &choice);
+        system("cls");
+
+        switch(choice)
+        {
+        case '1':
+            al = coletadados();
+            x = insere_lista_ordenada(li, al);
+            if(x){
+                printf("\nInserido ordenadamente com sucesso!");
+            }else{
+                printf("\nNao foi possivel inserir ordenadamente.");
+            }
+            printf("\n\n");
+            system("pause");
+            system("cls");
+            break;
+        case '2':
+            printf("Informe a matricula do aluno que quer buscar: ");
+            scanf("%d", &matricula);
+            x = consulta_lista_mat(li, matricula, &al);
+            if(x)
+            {
+                printf("\n\nConteudo de matricula %d:", matricula);
+                printf("\n%d", al.matricula);
+                printf("\n%.2f", al.n1);
+                printf("\n%.2f", al.n2);
+                printf("\n%.2f", al.n3);
+            }
+            else
+            {
+                printf("\nAluno %d nao encontrado.", matricula);
+            }
+            printf("\n\n");
+            system("pause");
+            system("cls");
+            break;
+        case '3':
+            printf("Informe a matricula do aluno que quer excluir: ");
+            scanf("%d", &matricula);
+            x = remove_lista(li, matricula);
+            if(x){
+                printf("\nElemento removido com sucesso!");
+            }else{
+                printf("\nNao foi possivel remover o elemento.");
+            }
+            printf("\n\n");
+            system("pause");
+            system("cls");
+            break;
+        case '0':
+            continuar = 0;
+            break;
+        default:
+            printf("Escolha uma opcao valida no menu!");
+            break;
+        }
     }
 
     apagaLista(li);

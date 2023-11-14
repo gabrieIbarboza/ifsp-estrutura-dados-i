@@ -2,6 +2,22 @@
 #include <stdlib.h>
 #include "listaLigada.h"
 
+struct aluno coletadados()
+{
+    ALUNO al;
+
+    printf("\n\nInforme a matricula do aluno: ");
+    scanf("%d", &al.matricula);
+    printf("\nInforme a nota 1: ");
+    scanf("%f", &al.n1);
+    printf("\nInforme a nota 2: ");
+    scanf("%f", &al.n2);
+    printf("\nInforme a nota 3: ");
+    scanf("%f", &al.n3);
+
+    return al;
+}
+
 typedef struct elemento{
     ALUNO dados;
     struct elemento *prox;
