@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1701395635 source:c:\users\gabri\onedrive\Área de trabalho\www\ifsp-estrutura-dados-i\final-project\lista-de-contatos\main.c
+	<stdio.h>
+	<stdlib.h>
+	"lista-de-contatos.h"
+
+1701396113 c:\users\gabri\onedrive\Área de trabalho\www\ifsp-estrutura-dados-i\final-project\lista-de-contatos\lista-de-contatos.h
+
+1701396003 source:c:\users\gabri\onedrive\Área de trabalho\www\ifsp-estrutura-dados-i\final-project\lista-de-contatos\lista-de-contatos.c
+	<stdio.h>
+	<stdlib.h>
+	"lista-de-contatos.h"
+
