@@ -6,7 +6,7 @@
 typedef struct contato{
     CLIENTE dados;
     struct contato *prox_contato;
-}CONTATO;
+}CONTATO; // Elemento da lista
 
 LISTA *criar_lista()
 {
@@ -65,18 +65,18 @@ int lista_vazia(LISTA *li)
 
 int verificar_cliente_cadastrado(LISTA *li, CLIENTE cliente)
 {
-    if(tamanho_lista(li) > 0)
+    if(tamanho_lista(li) > 0) // Verifica se existe ao menos um elemento na lista
     {
         CONTATO *aux = *li;
         do
         {
-            if(aux->dados.cod == cliente.cod)
+            if(aux->dados.cod == cliente.cod) // Verifica se o cod do cliente no elemento atual da lista e igual ao codigo passado como parametro
             {
-                return 1;
+                return 1; // Se sim, retorna positivo
             }
             aux = aux->prox_contato;
         }
-        while(aux != NULL);
+        while(aux != NULL); // Vai ate listar acabar
     }
     return 0;
 }
@@ -86,16 +86,17 @@ CLIENTE coletar_cliente()
     CLIENTE cl;
     char str[100];
 
-    fflush(stdin);
+    fflush(stdin); // Muitos desse para evitar bugs e sempre permitir que o usuario digite
     printf("\n\nInforme o codigo do cliente: ");
     scanf("%d", &cl.cod);
     fflush(stdin);
 
     printf("\nInforme o nome do cliente: ");
-    fgets(str, 59, stdin);
-    str[strlen(str)-1] = '\0';
-    strcpy(cl.nome, str);
-    fflush(stdin);
+    fgets(str, 59, stdin); // Guardar ate 59 caracteres do que o usuario digitar na variavel auxiliar (str)
+    str[strlen(str)-1] = '\0'; // fgets salva com \n no ultimo caractere da string, entao trocando esse \n por \0 (caractere que informa que o array acabou)
+    strcpy(cl.nome, str); // Copiando string da variavel auxiliar (str) para o nome do cliente a ser retornado (cl)
+    fflush(stdin); // Impedindo bugs
+    // Mesma logica em todo resto da funcao abaixo e na proxima funcao tambem :)
 
     printf("\nInforme a empresa: ");
     fgets(str, 59, stdin);
@@ -174,7 +175,7 @@ CLIENTE coletar_atualizacao_cliente()
     strcpy(cl.email, str);
     fflush(stdin);
 
-    system("cls");
+    system("cls"); // limpar console
 
     return cl;
 }
@@ -194,7 +195,7 @@ int coletar_codigo()
 
 void coletar_nome(char *nome[60])
 {
-    char str[60];
+    char str[60]; // string auxiliar
 
     fflush(stdin);
     printf("\nInforme o nome para buscar: ");
@@ -208,9 +209,9 @@ void coletar_nome(char *nome[60])
 
 int inserir_contato(LISTA *li, CLIENTE cliente)
 {
-    if(lista_existe(li))
+    if(lista_existe(li)) // se lista existir
     {
-        if(!verificar_cliente_cadastrado(li, cliente))
+        if(!verificar_cliente_cadastrado(li, cliente)) // e se o codigo desse cliente ja nao estiver cadastrado
         {
             CONTATO *c = (CONTATO*) malloc(sizeof(CONTATO));
             if(c == NULL) {
@@ -218,12 +219,12 @@ int inserir_contato(LISTA *li, CLIENTE cliente)
             }
             c->dados = cliente;
 
-            if(lista_vazia(li)){//insere no inicio
+            if(lista_vazia(li)){ // insere novo contato no inicio da lista se lista ainda estiver sem elementos
                 c->prox_contato = (*li);
                 *li = c;
                 return 1;
             }
-            else
+            else // caso contrario, insere ordenamente na lista
             {
                 CONTATO *c_anterior, *c_atual = *li;
                 while(c_atual != NULL && c_atual->dados.cod < cliente.cod)
@@ -262,7 +263,7 @@ void exibir_contato(CLIENTE cliente)
 
 int buscar_codigo(LISTA *li, int cod, LISTA *contato)
 {
-    if(!lista_vazia(li))
+    if(!lista_vazia(li)) // se lista nao estiver vazia
     {
         CONTATO *c = *li;
         while(c != NULL && c->dados.cod != cod)
@@ -270,9 +271,10 @@ int buscar_codigo(LISTA *li, int cod, LISTA *contato)
             c = c->prox_contato;
         }
 
-        if(c != NULL)
+        if(c != NULL) // se tiver encontrado um contato com mesmo codigo
         {
-            *contato = c;
+            *contato = c; // retorna ponteiro para contato encontrado no parametro *contato
+            (*contato)->prox_contato = NULL;
             return 1;
         }
     }
@@ -281,11 +283,12 @@ int buscar_codigo(LISTA *li, int cod, LISTA *contato)
 
 int buscar_nome(LISTA *li, char nome[], LISTA *contatos_encontrados)
 {
+    // strings auxiliares para nao ter alterar a orginal, ja que strlwr() altera diretamete a string na memoria
     char lower_nome[60], lower_selected_nome[60];
     char copy_nome[60];
 
     strcpy(copy_nome, nome);
-    strlwr(copy_nome);
+    strlwr(copy_nome); // transformando nome do parametro totalmente em minusculo
     strcpy(lower_nome, copy_nome);
 
     if(!lista_vazia(li))
@@ -294,18 +297,18 @@ int buscar_nome(LISTA *li, char nome[], LISTA *contatos_encontrados)
         while(c != NULL)
         {
             strcpy(copy_nome, c->dados.nome);
-            strlwr(copy_nome);
+            strlwr(copy_nome); // tranformando nome do contato atual totalmente me minusculo
             strcpy(lower_selected_nome, copy_nome);
 
-            if(strstr(lower_selected_nome, lower_nome) != NULL)
-            { //strstr devolve valor diferente de 0, ou seja, true, caso encontre o nome a ser buscado no contato atual selecionado
-                inserir_contato(contatos_encontrados, c->dados);
+            if(strstr(lower_selected_nome, lower_nome) != NULL) // ja que c e case sensitive, e importante transformar todos os caracteres em minuscula para buscar a segunda string dentro da primeira
+            { //strstr devolve valor diferente de 0, ou seja, true, caso encontre o nome a ser buscado dentro do nome do contato atual selecionado
+                inserir_contato(contatos_encontrados, c->dados); // cadastra o contato que passar na verificacao na lista de contatos encontrados recebida como parametro
             }
 
             c = c->prox_contato;
         }
 
-        if(!lista_vazia(contatos_encontrados))
+        if(!lista_vazia(contatos_encontrados)) // se a lista de contatos_encontrados nao estiver vazia, retornar sucesso (1)
         {
             return 1;
         }
@@ -318,27 +321,27 @@ void listar_contatos(LISTA *li)
     if(!lista_vazia(li))
     {
         CONTATO *c = *li;
-        while(c != NULL)
+        while(c != NULL) // passa por cada um dos elementos da lista
         {
-            exibir_contato(c->dados);
+            exibir_contato(c->dados); // passa os dados do contato para metodo que os imprime no console
             c = c->prox_contato;
         }
     }
     else
     {
-        printf("\n\n\tNada para mostrar, lista esta vazia!");
+        printf("\n\nNada para mostrar, lista esta vazia!");
     }
 }
 
 void listar_contatos_codigo(LISTA *li, int cod)
 {
     LISTA *c = criar_lista();
-    int success = buscar_codigo(li, cod, c);
+    int success = buscar_codigo(li, cod, c); // encontra contato com esse codigo na lista
 
-    if(success)
+    if(success) // se a busca der certo
     {
         printf("~~~~~~ Relatorio Individual ~~~~~~");
-        listar_contatos(c);
+        listar_contatos(c); // imprime esse contato (mesmo sendo uma lista, vai ser apenas 1, pois nao deveria ser possivel existir o mesmo cod mais de uma vez na lista)
     }
     else
     {
@@ -348,65 +351,66 @@ void listar_contatos_codigo(LISTA *li, int cod)
 
 void listar_contatos_nome(LISTA *li, char nome[])
 {
-    LISTA *contatos_encontrados = criar_lista();
+    LISTA *contatos_encontrados = criar_lista(); // lista auxiliar para armazenar temporariamente os contatos encontrados na busca por nome
     int success;
 
-    success = buscar_nome(li, nome, contatos_encontrados);
-    if(success)
+    success = buscar_nome(li, nome, contatos_encontrados); // preenche a lista contatos_encontrados de contatos que possuem a string nome (do parametro) no nome
+    if(success) // se alguem contato for enccontrado
     {
         printf("~~~~~~ Relatorio ~~~~~~");
-        listar_contatos(contatos_encontrados);
+        listar_contatos(contatos_encontrados); // imprimir cada um
     }
     else
     {
         printf("Nome %s nao encontrado na lista de contatos!", nome);
     }
 
-    apagar_lista(contatos_encontrados);
+    apagar_lista(contatos_encontrados); // liberando memoria alocada pela lista auxiliar, pois nao sera mais necessaria
 }
 
 void editar_contato_processo(LISTA *li)
 {
     LISTA *c = criar_lista();
-    int cod = coletar_codigo(), success;
+    int cod = coletar_codigo(), success; // pede um codigo de contato para o usuario
 
     success = buscar_codigo(li, cod, c);
-    if(success)
+    if(success) // se encontrar codigo na lista
     {
         printf("~~~~~~ Contato Encontrado ~~~~~~");
-        listar_contatos(c);
+        listar_contatos(c); // mostra contato encontrado
 
-        success = confirmar_operacao(li, "editar", c);
-        if(success)
+        success = confirmar_operacao(li, "editar", c); // pergunta ao usuario se deseja confirmar edicao
+        if(success) // caso usuario confirme a operacao
         {
             system("cls");
             printf("~~~~~~ Dados Antigos ~~~~~~");
-            listar_contatos(c);
+            listar_contatos(c); // mostrar dados atuais do contato
             printf("\n\n~~~~~~ Novos   Dados ~~~~~~");
-            CLIENTE cl = coletar_atualizacao_cliente();
+            CLIENTE cl = coletar_atualizacao_cliente(); // coletar dados para a atualizacao
             cl.cod = cod;
 
-            if(remover_contato(li, cod))
+            if(remover_contato(li, cod)) // remove contato atual
             {
-                if(inserir_contato(li, cl))
+                if(inserir_contato(li, cl)) // aloca contato novo com as informacoes atualizadas, mantem somente codigo intocado
                 {
                     printf("Edicao concluida com sucesso!");
                 }
             }
         }
-        else
+        else // caso usuario nao queria mais editar contato com o codigo informado
         {
             system("cls");
             printf("Edicao cancelada!");
         }
 
     }
-    else
+    else // caso nao encontre codigo
     {
         printf("Codigo %d nao encontrado na lista de contatos!", cod);
     }
 }
 
+// a estrutura do metodo abaixo e parecido com editar_contato_processo, vou destacar somente diferencas...
 void remover_contato_processo(LISTA *li)
 {
     LISTA *c = criar_lista();
@@ -420,9 +424,9 @@ void remover_contato_processo(LISTA *li)
 
         success = confirmar_operacao(li, "remover", c);
         system("cls");
-        if(success)
+        if(success) // se usuario confirmar que quer excluir contato selecionado
         {
-            success = remover_contato(li, cod);
+            success = remover_contato(li, cod); // chamar funcao que remove contato da lista
             if(success)
             {
                 printf("Contato removido com sucesso!");
@@ -446,28 +450,28 @@ void remover_contato_processo(LISTA *li)
 
 int remover_contato(LISTA *li, int cod)
 {
-    if(!lista_vazia(li))
+    if(!lista_vazia(li)) // se lista nao estiver vazia
     {
         CONTATO *ant, *atual = *li;
-        while(atual != NULL && atual->dados.cod != cod)
+        while(atual != NULL && atual->dados.cod != cod) // percorre lista buscando cod recebido por parametro
         {
             ant = atual;
             atual = atual->prox_contato;
         }
-        if(atual == NULL)
+        if(atual == NULL) // se nao encontrar codigo na lista
         {
-            return 0;
+            return 0; // retorna que operacao nao deu certo
         }
-        if(atual == *li)
+        if(atual == *li) // se cod encontrado for o primeiro da lista
         {
-            *li = atual->prox_contato;
+            *li = atual->prox_contato; // aponta o inicio da lista do primeiro elemento para o segundo (que agora se torna o primeiro)
         }
-        else
+        else // se cod encontrado estiver no meio ou final da lista
         {
             ant->prox_contato = atual->prox_contato;
         }
-        free(atual);
-        return 1;
+        free(atual); // libera memoria alocada pelo elemento da lista a ser removido
+        return 1; // retorna que agora e oficial, elemento/contato foi removido com sucesso!
     }
     else
     {
@@ -477,18 +481,18 @@ int remover_contato(LISTA *li, int cod)
 
 int confirmar_operacao(LISTA *li, char operacao[], LISTA *contato)
 {
-    char choice;
+    char choice; // variavel para receber escolha do usuario
 
     fflush(stdin);
     printf("\n\nDeseja realmente %s o contato?", operacao);
     printf("\nDigite 1 para confirmar, qualquer outra tecla cancela a operacao: ");
-    scanf(" %c", &choice);
+    scanf(" %c", &choice); // recebe o primeiro caracter do que o usuario digitou
 
     switch(choice)
     {
-    case '1':
+    case '1': // se o caracter for 1, retorna 1 (ou seja, usuario confirmou operacao!)
         return 1;
-    default:
+    default: // em qualquer outro caso, retorna 0 (usuario cancelou operacao)
         return 0;
         break;
     }
@@ -510,7 +514,7 @@ void backup_contatos(LISTA *li)
         { // Se nao conseguir abrir o arquivo, emitir erro e fechar programa
             printf("Erro na abertura de 'backup_lista_de_contatos.bin'!\n\n");
             system("pause");
-            exit(1); // fechar programa com código de erro
+            exit(1); // fechar programa com cï¿½digo de erro
         }
 
         // Alocando vetor para armazenar toda a lista atual
@@ -549,7 +553,7 @@ void restore_contatos(LISTA *li)
     {
         printf("Nenhum contato restaurado!\n\n");
         system("pause");
-        //exit(1);
+        //exit(1); nao e necessario retornar erro, pois caso a leitura nao ocorra, pode ser que seja a primeira vez que o usuario esta usando a aplicacao
     }
     else
     {
@@ -576,24 +580,24 @@ void restore_contatos(LISTA *li)
 
 void apagar_lista(LISTA *li)
 {
-    if(li != NULL)
+    if(lista_existe(li))
     {
         CONTATO *c;
-        while((*li) != NULL)
+        while((*li) != NULL) // enquanto o inicio da lista estiver apontando para outro elemento
         {
-            c = *li;
-            *li = (*li)->prox_contato;
-            free(c);
+            c = *li; // contato auxiliar aponta para contato atual
+            *li = (*li)->prox_contato; // lista aponta para o proximo elemento
+            free(c); // liberar elemento atual
         }
-        free(li);
+        free(li); // libera o ultimo elemento da lista que esta faltando
     }
 }
 
 char *strlwr(char *str)
 {
-    while(*str)
+    while(*str) // foreach character da string
     {
-        *str = tolower(*str);
+        *str = tolower(*str); // transformar character em sua versao minuscula
         str++;
     }
     return str;

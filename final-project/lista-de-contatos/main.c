@@ -7,14 +7,14 @@
 int main()
 {
     char nome[60];
-    int success, cod; // Para testar se as funcoes do lista-de-contatos.h estao se comportando como planejado
     LISTA *lista; //Criando ponteiro para lista
-    CLIENTE cliente;
 
     lista = criar_lista(); // Iniciando lista de contatos
-    restore_contatos(lista);
 
-    char choice;
+    restore_contatos(lista); // Povoando listas com dados da ultima sessao (salvos no arquivo)
+
+    // Menu em Loop
+    char choice; // Guarda o primeiro character do que o usuario digitar para decidir no switch o que fazer com o que o usuario digitou
     do
     {
         system("cls");
@@ -27,15 +27,14 @@ int main()
         printf("6 - Excluir contato\n");
         printf("0 - Sair do programa\n");
         printf("\nInforme o numero da acao que deseja: ");
-        fflush(stdin);
+        fflush(stdin); // Para garantir que somente o que o usuario digitar sera guardado
         scanf(" %c", &choice);
         system("cls");
 
         switch(choice)
         {
         case '1':
-            cliente = coletar_cliente();
-            if(inserir_contato(lista, cliente))
+            if(inserir_contato(lista, coletar_cliente()))
             {
                 printf("Contato inserido com sucesso!");
             }
@@ -49,15 +48,14 @@ int main()
             listar_contatos(lista);
             break;
         case '3':
-            cod = coletar_codigo();
-            listar_contatos_codigo(lista, cod);
+            listar_contatos_codigo(lista, coletar_codigo());
             break;
         case '4':
             coletar_nome(&nome);
             listar_contatos_nome(lista, nome);
             break;
         case '5':
-            editar_contato_processo(lista); //TODO: TERMINAR
+            editar_contato_processo(lista);
             break;
         case '6':
             remover_contato_processo(lista);
@@ -75,18 +73,14 @@ int main()
             system("pause");
         }
     }
-    while(choice != '0');
+    while(choice != '0'); // Sair do menu quando usuario digitar 0
 
-    backup_contatos(lista);
+    backup_contatos(lista); // Salvando lista de contatos no arquivo.bin
 
-    apagar_lista(lista);
+    apagar_lista(lista); // liberando memoria alocada pela lista
 
 
     //TODO: Salvar 10 contatos
-
-    //(OPCIONAL): Exibir total de contatos
-
-    //TODO: Comentar todo codigo
 
     //TODO: PDF de instrucoes
 
