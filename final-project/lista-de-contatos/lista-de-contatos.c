@@ -261,7 +261,7 @@ void exibir_contato(CLIENTE cliente)
     printf("\nEmail........: %s", cliente.email);
 }
 
-int buscar_codigo(LISTA *li, int cod, LISTA *contato)
+int buscar_codigo(LISTA *li, int cod, CLIENTE *contato)
 {
     if(!lista_vazia(li)) // se lista nao estiver vazia
     {
@@ -273,8 +273,7 @@ int buscar_codigo(LISTA *li, int cod, LISTA *contato)
 
         if(c != NULL) // se tiver encontrado um contato com mesmo codigo
         {
-            *contato = c; // retorna ponteiro para contato encontrado no parametro *contato
-            (*contato)->prox_contato = NULL;
+            *contato = c->dados; // guarda o CLIENTE encontrado na variável apontada por *contato
             return 1;
         }
     }
@@ -335,13 +334,13 @@ void listar_contatos(LISTA *li)
 
 void listar_contatos_codigo(LISTA *li, int cod)
 {
-    LISTA *c = criar_lista();
-    int success = buscar_codigo(li, cod, c); // encontra contato com esse codigo na lista
+    CLIENTE c;
+    int success = buscar_codigo(li, cod, &c); // encontra contato com esse codigo na lista
 
     if(success) // se a busca der certo
     {
         printf("~~~~~~ Relatorio Individual ~~~~~~");
-        listar_contatos(c); // imprime esse contato (mesmo sendo uma lista, vai ser apenas 1, pois nao deveria ser possivel existir o mesmo cod mais de uma vez na lista)
+        exibir_contato(c); // imprime esse contato (mesmo sendo uma lista, vai ser apenas 1, pois nao deveria ser possivel existir o mesmo cod mais de uma vez na lista)
     }
     else
     {
@@ -370,21 +369,21 @@ void listar_contatos_nome(LISTA *li, char nome[])
 
 void editar_contato_processo(LISTA *li)
 {
-    LISTA *c = criar_lista();
+    CLIENTE c;
     int cod = coletar_codigo(), success; // pede um codigo de contato para o usuario
 
-    success = buscar_codigo(li, cod, c);
+    success = buscar_codigo(li, cod, &c);
     if(success) // se encontrar codigo na lista
     {
         printf("~~~~~~ Contato Encontrado ~~~~~~");
-        listar_contatos(c); // mostra contato encontrado
+        exibir_contato(c); // mostra contato encontrado
 
-        success = confirmar_operacao(li, "editar", c); // pergunta ao usuario se deseja confirmar edicao
+        success = confirmar_operacao("editar"); // pergunta ao usuario se deseja confirmar edicao
         if(success) // caso usuario confirme a operacao
         {
             system("cls");
             printf("~~~~~~ Dados Antigos ~~~~~~");
-            listar_contatos(c); // mostrar dados atuais do contato
+            exibir_contato(c); // mostrar dados atuais do contato
             printf("\n\n~~~~~~ Novos   Dados ~~~~~~");
             CLIENTE cl = coletar_atualizacao_cliente(); // coletar dados para a atualizacao
             cl.cod = cod;
@@ -413,16 +412,16 @@ void editar_contato_processo(LISTA *li)
 // a estrutura do metodo abaixo e parecido com editar_contato_processo, vou destacar somente diferencas...
 void remover_contato_processo(LISTA *li)
 {
-    LISTA *c = criar_lista();
+    CLIENTE c;
     int cod = coletar_codigo(), success;
 
-    success = buscar_codigo(li, cod, c);
+    success = buscar_codigo(li, cod, &c);
     if(success)
     {
         printf("~~~~~~ Contato Encontrado ~~~~~~");
-        listar_contatos(c);
+        exibir_contato(c);
 
-        success = confirmar_operacao(li, "remover", c);
+        success = confirmar_operacao("remover");
         system("cls");
         if(success) // se usuario confirmar que quer excluir contato selecionado
         {
@@ -479,7 +478,7 @@ int remover_contato(LISTA *li, int cod)
     }
 }
 
-int confirmar_operacao(LISTA *li, char operacao[], LISTA *contato)
+int confirmar_operacao(char operacao[])
 {
     char choice; // variavel para receber escolha do usuario
 
@@ -503,45 +502,42 @@ void backup_contatos(LISTA *li)
     int total_gravado; // Para monitorar se a lista toda foi salva no arquivo
     int total_contatos = tamanho_lista(li);
 
-    if(total_contatos > 0)
-    {
-        // Criando variavel do tipo arquivo
-        FILE *f;
+    // Criando variavel do tipo arquivo
+    FILE *f;
 
-        // Tentando abrir arquivo usando modo de escrita binaria (wb)
-        f = fopen("backup_lista_de_contatos.bin", "wb");
-        if(f == NULL)
-        { // Se nao conseguir abrir o arquivo, emitir erro e fechar programa
-            printf("Erro na abertura de 'backup_lista_de_contatos.bin'!\n\n");
-            system("pause");
-            exit(1); // fechar programa com c�digo de erro
-        }
-
-        // Alocando vetor para armazenar toda a lista atual
-        CLIENTE *vetor_de_contatos = (CLIENTE*) calloc(total_contatos, sizeof(CLIENTE));
-
-        CONTATO *c = *li; // pegando primeiro contato da lista
-        for(int i = 0; i < total_contatos; i++)
-        {
-            vetor_de_contatos[i] = c->dados;
-            c = c->prox_contato;
-        }
-
-        total_gravado = fwrite(vetor_de_contatos, sizeof(CLIENTE), total_contatos, f);
-        if(total_gravado != total_contatos)
-        {
-            printf("Erro na gravacao dos contatos em 'backup_lista_de_contatos.bin'!\n\n");
-            system("pause");
-            exit(1);
-        }
-
-        /*for(int i = 0; i < total_contatos; i++)
-        {
-            free(vetor_de_contatos[i]);
-        }*/
-        free(vetor_de_contatos);
-        fclose(f);
+    // Tentando abrir arquivo usando modo de escrita binaria (wb)
+    f = fopen("backup_lista_de_contatos.bin", "wb");
+    if(f == NULL)
+    { // Se nao conseguir abrir o arquivo, emitir erro e fechar programa
+        printf("Erro na abertura de 'backup_lista_de_contatos.bin'!\n\n");
+        system("pause");
+        exit(1); // fechar programa com c�digo de erro
     }
+
+    // Alocando vetor para armazenar toda a lista atual
+    CLIENTE *vetor_de_contatos = (CLIENTE*) calloc(total_contatos, sizeof(CLIENTE));
+
+    CONTATO *c = *li; // pegando primeiro contato da lista
+    for(int i = 0; i < total_contatos; i++)
+    {
+        vetor_de_contatos[i] = c->dados;
+        c = c->prox_contato;
+    }
+
+    total_gravado = fwrite(vetor_de_contatos, sizeof(CLIENTE), total_contatos, f);
+    if(total_gravado != total_contatos)
+    {
+        printf("Erro na gravacao dos contatos em 'backup_lista_de_contatos.bin'!\n\n");
+        system("pause");
+        exit(1);
+    }
+
+    /*for(int i = 0; i < total_contatos; i++)
+    {
+        free(vetor_de_contatos[i]);
+    }*/
+    free(vetor_de_contatos);
+    fclose(f);
 }
 
 void restore_contatos(LISTA *li)
