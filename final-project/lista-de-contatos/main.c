@@ -79,10 +79,7 @@ int main()
 
     apagar_lista(lista); // liberando memoria alocada pela lista
 
-
     //TODO: Salvar 10 contatos
-
-    //TODO: PDF de instrucoes
 
     printf("Dados salvos com sucesso! Tudo pronto para voce sair do programa!\n\n");
     system("pause");
