@@ -190,35 +190,38 @@ int remove_arvBin(ArvBin *raiz, int valor)
     {
         return 0;
     }
-    struct NO *atual = *raiz;
     struct NO *ant = NULL;
+    struct NO *atual = *raiz;
     while(atual != NULL)
     {
         if(valor == atual->info)
         {
-            *raiz = remove_atual(atual);
-        }
-        else
-        {
-            if(ant->dir == atual)
+            if(atual == *raiz)
             {
-                ant->dir = remove_atual(atual);
+                *raiz = remove_atual(atual);
             }
             else
             {
-                ant->esq = remove_atual(atual);
+                if(ant->dir == atual)
+                {
+                    ant->dir = remove_atual(atual);
+                }
+                else
+                {
+                    ant->esq = remove_atual(atual);
+                }
             }
+            return 1;
         }
-        return 1;
-    }
-    ant = atual;
-    if(valor > atual->info)
-    {
-        atual = atual->dir;
-    }
-    else
-    {
-        atual = atual->esq;
+        ant = atual;
+        if(valor > atual->info)
+        {
+            atual = atual->dir;
+        }
+        else
+        {
+            atual = atual->esq;
+        }
     }
 }
 
@@ -250,5 +253,25 @@ struct NO *remove_atual(struct NO *atual)
 
 int consulta_arvBin(ArvBin *raiz, int valor)
 {
-
+    if(raiz == NULL)
+    {
+        return 0;
+    }
+    struct NO *atual = *raiz;
+    while(atual != NULL)
+    {
+        if(valor == atual->info)
+        {
+            return 1;
+        }
+        if(valor >atual->info)
+        {
+            atual = atual->dir;
+        }
+        else
+        {
+            atual = atual->esq;
+        }
+    }
+    return 0;
 }

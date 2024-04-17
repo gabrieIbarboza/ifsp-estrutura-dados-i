@@ -40,13 +40,30 @@ int main() {
 
     //Remocao
     x = remove_arvBin(raiz, 100);
-    x = remove_arvBin(raiz, 10);
-
+    if(x)
+    {
+        printf("Elemento 100 removido!");
+    }
+    else
+    {
+        printf("Nao foi possivel remover o elemento 100!");
+    }
 
     //Pos insercao de elementos
     preOrdem_arvBin(raiz);
     emOrdem_arvBin(raiz);
     posOrdem_arvBin(raiz);
+
+    //Consulta
+    printf("\nBusca na Arvore Binaria:\n");
+    if(consulta_arvBin(raiz, 140))
+    {
+        printf("\nConsulta realizada com sucesso!");
+    }
+    else
+    {
+        printf("\nElemento nao encontrado...");
+    }
 
     liberar_arvBin(raiz);
     printf("\n\n");

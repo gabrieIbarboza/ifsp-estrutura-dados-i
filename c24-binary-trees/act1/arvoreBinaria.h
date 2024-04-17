@@ -19,4 +19,5 @@ void posOrdem_arvBin(ArvBin *raiz);
 //Operacoes na arvore
 int insere_arvBin(ArvBin *raiz, int valor);
 int remove_arvBin(ArvBin *raiz, int valor);
+struct NO *remove_atual(struct NO *atual);
 int consulta_arvBin(ArvBin *raiz, int valor);
