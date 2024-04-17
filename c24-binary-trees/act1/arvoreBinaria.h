@@ -12,10 +12,11 @@ int altura_arvBin(ArvBin *raiz);
 int totalNO_arvBin(ArvBin *raiz);
 
 //Percorrendo a arvore
-int preOrdem_arvBin(ArvBin *raiz);
-int emOrdem_arvBin(ArvBin *raiz);
-int posOrdem_arvBin(ArvBin *raiz);
+void preOrdem_arvBin(ArvBin *raiz);
+void emOrdem_arvBin(ArvBin *raiz);
+void posOrdem_arvBin(ArvBin *raiz);
 
 //Operacoes na arvore
 int insere_arvBin(ArvBin *raiz, int valor);
-
+int remove_arvBin(ArvBin *raiz, int valor);
+int consulta_arvBin(ArvBin *raiz, int valor);

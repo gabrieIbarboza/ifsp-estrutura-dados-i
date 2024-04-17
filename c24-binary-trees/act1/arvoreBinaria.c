@@ -88,13 +88,13 @@ int totalNO_arvBin(ArvBin *raiz)
     return(alt_esq + alt_dir + 1);
 }
 
-int preOrdem_arvBin(ArvBin *raiz)
+void preOrdem_arvBin(ArvBin *raiz)
 {
     if(raiz == NULL)
     {
         return;
     }
-    if(*raiz == NULL)
+    if(*raiz != NULL)
     {
         printf("%d\n", (*raiz)->info);
         preOrdem_arvBin(&((*raiz)->esq));
@@ -102,13 +102,13 @@ int preOrdem_arvBin(ArvBin *raiz)
     }
 }
 
-int emOrdem_arvBin(ArvBin *raiz)
+void emOrdem_arvBin(ArvBin *raiz)
 {
     if(raiz == NULL)
     {
         return;
     }
-    if(*raiz == NULL)
+    if(*raiz != NULL)
     {
         emOrdem_arvBin(&((*raiz)->esq));
         printf("%d\n", (*raiz)->info);
@@ -116,13 +116,13 @@ int emOrdem_arvBin(ArvBin *raiz)
     }
 }
 
-int posOrdem_arvBin(ArvBin *raiz)
+void posOrdem_arvBin(ArvBin *raiz)
 {
     if(raiz == NULL)
     {
         return;
     }
-    if(*raiz == NULL)
+    if(*raiz != NULL)
     {
         emOrdem_arvBin(&((*raiz)->esq));
         emOrdem_arvBin(&((*raiz)->dir));
@@ -132,5 +132,123 @@ int posOrdem_arvBin(ArvBin *raiz)
 
 int insere_arvBin(ArvBin *raiz, int valor)
 {
-    
+    if(raiz == NULL)
+    {
+        return 0;
+    }
+    struct NO *novo;
+    novo = (struct NO*) malloc(sizeof(struct NO));
+    if(novo == NULL)
+    {
+        return 0;
+    }
+
+    novo->info = valor;
+    novo->dir = NULL;
+    novo->esq = NULL;
+    if(*raiz == NULL)
+    {
+        *raiz = novo;
+    }
+    else
+    {
+        struct NO *atual = *raiz;
+        struct NO *ant = NULL;
+        while(atual != NULL)
+        {
+            ant = atual;
+            if(valor == atual->info)
+            {
+                free(novo); //Elemento ja existe!
+                return 0;
+            }
+
+            if(valor > atual->info)
+            {
+                atual = atual->dir;
+            }
+            else
+            {
+                atual = atual->esq;
+            }
+        }
+        if(valor > ant->info)
+        {
+            ant->dir = novo;
+        }
+        else
+        {
+            ant->esq = novo;
+        }
+    }
+    return 1;
+}
+
+int remove_arvBin(ArvBin *raiz, int valor)
+{
+    if(raiz == NULL)
+    {
+        return 0;
+    }
+    struct NO *atual = *raiz;
+    struct NO *ant = NULL;
+    while(atual != NULL)
+    {
+        if(valor == atual->info)
+        {
+            *raiz = remove_atual(atual);
+        }
+        else
+        {
+            if(ant->dir == atual)
+            {
+                ant->dir = remove_atual(atual);
+            }
+            else
+            {
+                ant->esq = remove_atual(atual);
+            }
+        }
+        return 1;
+    }
+    ant = atual;
+    if(valor > atual->info)
+    {
+        atual = atual->dir;
+    }
+    else
+    {
+        atual = atual->esq;
+    }
+}
+
+struct NO *remove_atual(struct NO *atual)
+{
+    struct NO *no1, *no2;
+    if(atual->esq == NULL)
+    {
+        no2 = atual->dir;
+        free(atual);
+        return no2;
+    }
+    no1 = atual;
+    no2 = atual->esq;
+    while(no2->dir != NULL)
+    {
+        no1 = no2;
+        no2 = no2->dir;
+    }
+    if(no1 != atual)
+    {
+        no1->dir = no2->esq;
+        no2->esq = atual->esq;
+    }
+    no2->dir = atual->dir;
+    free(atual);
+    return no2;
+}
+
+int consulta_arvBin(ArvBin *raiz, int valor)
+{
+
 }

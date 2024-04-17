@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "arvoreBinaria.h"
 
+void print_insercao(int x);
+
 int main() {
     int x; // sera usado como retorno
     ArvBin *raiz;
@@ -23,14 +25,43 @@ int main() {
     x = totalNO_arvBin(raiz);
     printf("\n\nTotal de nos na arvore: %d", x);
 
+    //Antes de insercao elementos
     preOrdem_arvBin(raiz);
     emOrdem_arvBin(raiz);
     posOrdem_arvBin(raiz);
 
+    //Insercao de elementos
+    int arr_inserir[] = {150, 110, 100, 130, 120, 140, 160};
+    for(int i = 0; i < 7; i++)
+    {
+        x = insere_arvBin(raiz, arr_inserir[i]);
+        print_insercao(x);
+    }
 
+    //Remocao
+    x = remove_arvBin(raiz, 100);
+    x = remove_arvBin(raiz, 10);
+
+
+    //Pos insercao de elementos
+    preOrdem_arvBin(raiz);
+    emOrdem_arvBin(raiz);
+    posOrdem_arvBin(raiz);
 
     liberar_arvBin(raiz);
     printf("\n\n");
     system("pause");
     return 0;
+}
+
+void print_insercao(int x)
+{
+    if(x)
+    {
+        printf("\n\nElemento inserido na arvore com sucesso.");
+    }
+    else
+    {
+        printf("\n\nErro: Elemento nao inserido na arvore.");
+    }
 }
