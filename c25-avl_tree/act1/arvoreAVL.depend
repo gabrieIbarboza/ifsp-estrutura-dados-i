@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1717158132 source:c:\users\aluno\documents\edaii\c25-avl_tree\act1\main.c
+	<stdio.h>
+	<stdlib.h>
+	"arvoreAVL.h"
+
+1717546794 c:\users\aluno\documents\edaii\c25-avl_tree\act1\arvoreavl.h
+
