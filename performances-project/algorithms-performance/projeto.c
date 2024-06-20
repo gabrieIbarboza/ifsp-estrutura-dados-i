@@ -29,19 +29,19 @@ void showSortingMethodMenu() {
 
 void showElementQuantityMenu() {
     printf("\n\tEscolha a quantidade de elementos a serem ordenados");
-    printf("\n1- 10.000");
-    printf("\n2- 50.000");
-    printf("\n3- 100.000");
-    printf("\n4- 200.000");
-    printf("\n5- 400.000");
-    printf("\n6- 800.000");
+    printf("\n1- 1.000");
+    printf("\n2- 5.000");
+    printf("\n3- 10.000");
+    printf("\n4- 20.000");
+    printf("\n5- 50.000");
+    printf("\n6- 100.000");
     printf("\nDigite o numero equivalente a quantidade escolhida: ");
 }
 
 int* allocateAndFillArray(int size, int min, int max) {
     int* array = (int*)malloc(size * sizeof(int));
     if (array == NULL) {
-        printf("Erro na alocação de memória!\n");
+        printf("Erro na alocacao de memoria!\n");
         exit(1);
     }
 
@@ -54,7 +54,7 @@ int* allocateAndFillArray(int size, int min, int max) {
     return array;
 }
 
-// Função embaralha array
+// Funï¿½ï¿½o embaralha array
 void shuffleArray(int* array, int size) {
     for (int i = size - 2; i > 0; i--) {
         int j = rand() % (i + 1);
@@ -70,7 +70,7 @@ double calculateAverageTime(double executionTimes[], int numberOfExecutions) {
         sum += executionTimes[i];
     }
     double average = sum / numberOfExecutions;
-    printf("\n\nMedia dos tempos: %f", average);
+    printf("\n\nMedia dos tempos: %.2f", average);
     return average;
 }
 
@@ -90,21 +90,21 @@ void choiceBubble(int* array, int size, struct timeval startTime, struct timeval
     gettimeofday(&startTime, NULL);
     bubbleSort(array, size);
     gettimeofday(&endTime, NULL);
-    arrayExecutionTime[i] = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-                  (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+    arrayExecutionTime[i] = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec)); // multiply sec by (* 1000000.0) to transform seconds in microseconds
     if(i == 9){
         gettimeofday(&startTime, NULL);
         bubbleSort(array, size);
         gettimeofday(&endTime, NULL);
-        *ascOrderTime = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-            (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+        *ascOrderTime = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
 
         sortArrayDescending(array, size);
         gettimeofday(&startTime, NULL);
         bubbleSort(array, size);
         gettimeofday(&endTime, NULL);
-        *decOrderTime = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-            (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+        *decOrderTime = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
     }
     free(array);
 }
@@ -113,21 +113,21 @@ void choiceSelection(int* array, int size, struct timeval startTime, struct time
     gettimeofday(&startTime, NULL);
     selectionSort(array, size);
     gettimeofday(&endTime, NULL);
-    arrayExecutionTime[i] = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-          (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+    arrayExecutionTime[i] = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
     if(i == 9){
         gettimeofday(&startTime, NULL);
         selectionSort(array, size);
         gettimeofday(&endTime, NULL);
-        *ascOrderTime = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-            (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+        *ascOrderTime = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
 
         sortArrayDescending(array, size);
         gettimeofday(&startTime, NULL);
         selectionSort(array, size);
         gettimeofday(&endTime, NULL);
-        *decOrderTime = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-            (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+        *decOrderTime = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
     }
     free(array);
 }
@@ -136,21 +136,21 @@ void choiceInsertion(int* array, int size, struct timeval startTime, struct time
     gettimeofday(&startTime, NULL);
     insertionSort(array, size);
     gettimeofday(&endTime, NULL);
-    arrayExecutionTime[i] = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-          (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+    arrayExecutionTime[i] = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
     if(i == 9){
         gettimeofday(&startTime, NULL);
         insertionSort(array, size);
         gettimeofday(&endTime, NULL);
-        *ascOrderTime = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-            (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+        *ascOrderTime = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
 
         sortArrayDescending(array, size);
         gettimeofday(&startTime, NULL);
         insertionSort(array, size);
         gettimeofday(&endTime, NULL);
-        *decOrderTime = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-            (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+        *decOrderTime = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
     }
     free(array);
 }
@@ -161,16 +161,16 @@ void choiceCounting(int* array, int size, struct timeval startTime, struct timev
     free(array);
     array = sortedArray;
     gettimeofday(&endTime, NULL);
-    arrayExecutionTime[i] = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-          (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+    arrayExecutionTime[i] = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
     if(i == 9){
         gettimeofday(&startTime, NULL);
         int* sortedArray = countingSort(array, size);
         free(array);
         array = sortedArray;
         gettimeofday(&endTime, NULL);
-        *ascOrderTime = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-          (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+        *ascOrderTime = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
 
         sortArrayDescending(array, size);
         gettimeofday(&startTime, NULL);
@@ -178,8 +178,8 @@ void choiceCounting(int* array, int size, struct timeval startTime, struct timev
         free(array);
         array = sortedArray;
         gettimeofday(&endTime, NULL);
-        *decOrderTime = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-          (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+        *decOrderTime = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
     }
     free(array);
 }
@@ -188,21 +188,21 @@ void choiceHeap(int* array, int size, struct timeval startTime, struct timeval e
     gettimeofday(&startTime, NULL);
     heapSort(array, size);
     gettimeofday(&endTime, NULL);
-    arrayExecutionTime[i] = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-          (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+    arrayExecutionTime[i] = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
     if(i == 9){
         gettimeofday(&startTime, NULL);
         heapSort(array, size);
         gettimeofday(&endTime, NULL);
-        *ascOrderTime = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-            (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+        *ascOrderTime = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
 
         sortArrayDescending(array, size);
         gettimeofday(&startTime, NULL);
         heapSort(array, size);
         gettimeofday(&endTime, NULL);
-        *decOrderTime = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-            (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+        *decOrderTime = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
     }
     free(array);
 }
@@ -211,21 +211,21 @@ void choiceMerge(int* array, int size, struct timeval startTime, struct timeval 
     gettimeofday(&startTime, NULL);
     mergeSort(array, 0, size - 1);
     gettimeofday(&endTime, NULL);
-    arrayExecutionTime[i] = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-          (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+    arrayExecutionTime[i] = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
     if(i == 9){
         gettimeofday(&startTime, NULL);
         mergeSort(array, 0, size - 1);
         gettimeofday(&endTime, NULL);
-        *ascOrderTime = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-            (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+        *ascOrderTime = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
 
         sortArrayDescending(array, size);
         gettimeofday(&startTime, NULL);
         mergeSort(array, 0, size - 1);
         gettimeofday(&endTime, NULL);
-        *decOrderTime = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-            (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+        *decOrderTime = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
     }
     free(array);
 }
@@ -234,21 +234,21 @@ void choiceTim(int* array, int size, struct timeval startTime, struct timeval en
     gettimeofday(&startTime, NULL);
     timSort(array, size);
     gettimeofday(&endTime, NULL);
-    arrayExecutionTime[i] = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-          (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+    arrayExecutionTime[i] = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
     if(i == 9){
         gettimeofday(&startTime, NULL);
         timSort(array, size);
         gettimeofday(&endTime, NULL);
-        *ascOrderTime = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-            (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+        *ascOrderTime = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
 
         sortArrayDescending(array, size);
         gettimeofday(&startTime, NULL);
         timSort(array, size);
         gettimeofday(&endTime, NULL);
-        *decOrderTime = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-            (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+        *decOrderTime = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
     }
     free(array);
 }
@@ -257,21 +257,21 @@ void choiceQuick(int* array, int size, struct timeval startTime, struct timeval 
     gettimeofday(&startTime, NULL);
     quickSort(array, 0, size - 1);
     gettimeofday(&endTime, NULL);
-    arrayExecutionTime[i] = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-          (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+    arrayExecutionTime[i] = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
     if(i == 9){
         gettimeofday(&startTime, NULL);
         quickSort(array, 0, size - 1);
         gettimeofday(&endTime, NULL);
-        *ascOrderTime = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-            (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+        *ascOrderTime = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
 
         sortArrayDescending(array, size);
         gettimeofday(&startTime, NULL);
         quickSort(array, 0, size - 1);
         gettimeofday(&endTime, NULL);
-        *decOrderTime = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-            (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+        *decOrderTime = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
     }
     free(array);
 }
@@ -280,21 +280,21 @@ void choiceShell(int* array, int size, struct timeval startTime, struct timeval 
     gettimeofday(&startTime, NULL);
     shellSort(array, size);
     gettimeofday(&endTime, NULL);
-    arrayExecutionTime[i] = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-          (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+    arrayExecutionTime[i] = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
     if(i == 9){
         gettimeofday(&startTime, NULL);
         shellSort(array, size);
         gettimeofday(&endTime, NULL);
-        *ascOrderTime = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-            (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+        *ascOrderTime = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
 
         sortArrayDescending(array, size);
         gettimeofday(&startTime, NULL);
         shellSort(array, size);
         gettimeofday(&endTime, NULL);
-        *decOrderTime = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-            (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+        *decOrderTime = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
     }
     free(array);
 }
@@ -303,21 +303,21 @@ void choiceRadix(int* array, int size, struct timeval startTime, struct timeval 
     gettimeofday(&startTime, NULL);
     radixSortLSD(array, size);
     gettimeofday(&endTime, NULL);
-    arrayExecutionTime[i] = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-          (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+    arrayExecutionTime[i] = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
     if(i == 9){
         gettimeofday(&startTime, NULL);
         radixSortLSD(array, size);
         gettimeofday(&endTime, NULL);
-        *ascOrderTime = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-            (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+        *ascOrderTime = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
 
         sortArrayDescending(array, size);
         gettimeofday(&startTime, NULL);
         radixSortLSD(array, size);
         gettimeofday(&endTime, NULL);
-        *decOrderTime = (endTime.tv_sec + endTime.tv_usec / 1000000.0) -
-            (startTime.tv_sec + startTime.tv_usec / 1000000.0);
+        *decOrderTime = ((endTime.tv_sec * 1000000.0 + endTime.tv_usec ) -
+                    (startTime.tv_sec * 1000000.0 + startTime.tv_usec));
     }
     free(array);
 }

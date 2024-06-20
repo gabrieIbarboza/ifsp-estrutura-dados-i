@@ -10,8 +10,8 @@ void salvarTemposMediosEmArquivo(const char *algoritmo, double mediaTempos, doub
         return;
     }
     fprintf(arquivo, "%s:\n", algoritmo);
-    fprintf(arquivo, "Tempo médio: %f, Tempo crescente: %f, Tempo decrescente: %f\n", mediaTempos, tempoAsc, tempoDesc);
-    fprintf(arquivo, "Tempos de execução: ");
+    fprintf(arquivo, "Tempo medio: %f, Tempo crescente: %f, Tempo decrescente: %f\n", mediaTempos, tempoAsc, tempoDesc);
+    fprintf(arquivo, "Tempos de execucao: ");
     for (int i = 0; i < numTempos; i++) {
         fprintf(arquivo, "%f", temposExecucao[i]);
         fprintf(arquivo, ",");
@@ -37,22 +37,22 @@ int main() {
 
     switch (choiceElement) {
         case 1:
-            size = 10000;
+            size = 1000;
             break;
         case 2:
-            size = 50000;
+            size = 5000;
             break;
         case 3:
-            size = 100000;
+            size = 10000;
             break;
         case 4:
-            size = 200000;
+            size = 20000;
             break;
         case 5:
-            size = 400000;
+            size = 50000;
             break;
         case 6:
-            size = 800000;
+            size = 100000;
             break;
         default:
             printf("Opcao invalida escolhida!\n");
@@ -149,12 +149,12 @@ int main() {
 
     printf("\nTempos de execucao:\n");
     for (int i = 0; i < 10; i++) {
-        printf("%f ", arrayExecutionTime[i]);
+        printf("%.2f ", arrayExecutionTime[i]);
     }
 
     averageTimes = calculateAverageTime(arrayExecutionTime, 10);
-    printf("\nTempo para ordenar array crescente: %f", ascOrderTime);
-    printf("\nTempo para ordenar array decrescente: %f\n", decOrderTime);
+    printf("\nTempo para ordenar array crescente: %.2f", ascOrderTime);
+    printf("\nTempo para ordenar array decrescente: %.2f\n", decOrderTime);
 
     salvarTemposMediosEmArquivo(algorithmName, averageTimes, ascOrderTime, decOrderTime, arrayExecutionTime, 10);
 
