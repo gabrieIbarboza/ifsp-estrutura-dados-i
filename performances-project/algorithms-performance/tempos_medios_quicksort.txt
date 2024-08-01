@@ -1,0 +1,27 @@
+Quick Sort:
+Tempo medio: 18202.000000 microssegundos, Tempo crescente: 102252.000000 microssegundos, Tempo decrescente: 6011.000000 microssegundos
+Tempos de execucao: 8976.000000 8976.000000 8976.000000 8976.000000 9973.000000 8976.000000 8976.000000 8976.000000 102238.000000 6977.000000 
+Quick Sort:
+Tempo medio: 99656.500000 microssegundos, Tempo crescente: 531574.000000 microssegundos, Tempo decrescente: 15620.000000 microssegundos
+Tempos de execucao: 22994.000000 22021.000000 22134.000000 22569.000000 20979.000000 21000.000000 21998.000000 23000.000000 801257.000000 18613.000000 
+Quick Sort:
+Tempo medio: 69346.600000 microssegundos, Tempo crescente: 530885.000000 microssegundos, Tempo decrescente: 18116.000000 microssegundos
+Tempos de execucao: 21998.000000 22001.000000 22000.000000 22000.000000 21999.000000 22996.000000 22993.000000 21990.000000 497298.000000 18191.000000 
+Quick Sort:
+Tempo medio: 12223.600000 microssegundos, Tempo crescente: 55556.000000 microssegundos, Tempo decrescente: 8576.000000 microssegundos
+Tempos de execucao: 10969.000000 0.000000 15035.000000 15670.000000 15632.000000 0.000000 9959.000000 9635.000000 45336.000000 0.000000 
+Quick Sort:
+Tempo medio: 72714.900000 microssegundos, Tempo crescente: 304765.000000 microssegundos, Tempo decrescente: 15624.000000 microssegundos
+Tempos de execucao: 16107.000000 31294.000000 23488.000000 27283.000000 30165.000000 9540.000000 15625.000000 32860.000000 525163.000000 15624.000000 
+Quick Sort:
+Tempo medio: 2085.800000 microssegundos, Tempo crescente: 2000.000000 microssegundos, Tempo decrescente: 2000.000000 microssegundos
+Tempos de execucao: 2555.000000 1880.000000 2623.000000 2000.000000 2000.000000 2000.000000 2000.000000 1000.000000 3800.000000 1000.000000 
+Quick Sort:
+Tempo medio: 3749.700000 microssegundos, Tempo crescente: 3000.000000 microssegundos, Tempo decrescente: 3000.000000 microssegundos
+Tempos de execucao: 4307.000000 4323.000000 3050.000000 4000.000000 3976.000000 4316.000000 2997.000000 4000.000000 2527.000000 4001.000000 
+Quick Sort:
+Tempo medio: 0.000000 microssegundos, Tempo crescente: 0.000000 microssegundos, Tempo decrescente: 0.000000 microssegundos
+Tempos de execucao: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Quick Sort:
+Tempo medio: 936.300000 microssegundos, Tempo crescente: 510.000000 microssegundos, Tempo decrescente: 0.000000 microssegundos
+Tempos de execucao: 997.000000 1251.000000 1066.000000 1005.000000 1000.000000 1000.000000 1000.000000 1000.000000 0.000000 1044.000000 

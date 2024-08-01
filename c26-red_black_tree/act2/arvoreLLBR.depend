@@ -1,0 +1,37 @@
+# depslib dependency file v1.0
+1719961179 source:c:\users\aluno\desktop\teste\arvorellbr\arvorellbr.c
+	<stdio.h>
+	<stdlib.h>
+	"arvoreLLBR.h"
+
+1719961179 c:\users\aluno\desktop\teste\arvorellbr\arvorellbr.h
+
+1719960585 source:c:\users\aluno\desktop\teste\arvorellbr\main.c
+	<stdio.h>
+	<stdlib.h>
+	"arvoreLLBR.h"
+
+1722385883 source:c:\users\aluno\downloads\arvorellbr\main.c
+	<stdio.h>
+	<stdlib.h>
+	"arvoreLLBR.h"
+
+1722385332 c:\users\aluno\downloads\arvorellbr\arvorellbr.h
+
+1722386464 source:c:\users\aluno\downloads\arvorellbr\arvorellbr.c
+	<stdio.h>
+	<stdlib.h>
+	"arvoreLLBR.h"
+
+1722476776 source:c:\users\gabri\onedrive\Área de trabalho\www\ifsp-estrutura-dados\c26-red_black_tree\arvorellbr\arvorellbr.c
+	<stdio.h>
+	<stdlib.h>
+	"arvoreLLBR.h"
+
+1722476743 c:\users\gabri\onedrive\Área de trabalho\www\ifsp-estrutura-dados\c26-red_black_tree\arvorellbr\arvorellbr.h
+
+1722476836 source:c:\users\gabri\onedrive\Área de trabalho\www\ifsp-estrutura-dados\c26-red_black_tree\arvorellbr\main.c
+	<stdio.h>
+	<stdlib.h>
+	"arvoreLLBR.h"
+
